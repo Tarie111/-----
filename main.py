@@ -1,7 +1,7 @@
 import sys
 import random
 from PyQt6 import QtWidgets, uic
-from PyQt6.QtWidgets import QApplication, QWidget, QPushButton
+from PyQt6.QtWidgets import QApplication, QWidget
 from PyQt6.QtGui import QPainter, QColor
 
 class CircleApp(QWidget):
@@ -17,13 +17,14 @@ class CircleApp(QWidget):
         diameter = random.randint(20, 100)
         x = random.randint(0, self.width() - diameter)
         y = random.randint(0, self.height() - diameter)
-        self.circles.append((x, y, diameter))
+        color = QColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        self.circles.append((x, y, diameter, color))
         self.update()
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.setBrush(QColor(255, 255, 0))
-        for (x, y, diameter) in self.circles:
+        for (x, y, diameter, color) in self.circles:
+            painter.setBrush(color)
             painter.drawEllipse(x, y, diameter, diameter)
 
 if __name__ == '__main__':
